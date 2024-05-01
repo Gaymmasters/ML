@@ -10,7 +10,9 @@ Flag = False
 #print(game_board)
 #print(game_board[1][1])
 
+#Функция совершения ходов игроками
 def game(player, board, counter, last_move):
+    #Совершение всех последующих ходов
     if counter != 0:
         square_num = int(input('player'+player+' moves in b'+str(last_move)+'s'))
         if board[last_move][square_num]!='X' and  board[last_move][square_num]!='O':
@@ -22,6 +24,7 @@ def game(player, board, counter, last_move):
         else:
             print('Choose another field')
             previous_move = last_move
+    #Совершение первого хода
     else:
         square_num = int(input('player'+player+' moves in b4s'))
         board[4][square_num] = player
@@ -31,6 +34,7 @@ def game(player, board, counter, last_move):
         last_move = square_num
     return board, counter, last_move, previous_move
 
+#Функция, проверяющая условие победы
 def victory(player, board, previous_move):
     if (board[previous_move][0]==player and board[previous_move][1]==player and board[previous_move][2]==player) or \
         (board[previous_move][3] == player and board[previous_move][4] == player and board[previous_move][5] == player) or \
@@ -45,7 +49,9 @@ def victory(player, board, previous_move):
     else:
         return False
 
+#Алгоритм самой игры
 while not Flag:
+    #Если значение в счетчике четное, то ходит игрок 1, иначе - игрок 2
     if move_counter%2==0:
         game_board, move_counter, last_moves, prev = game(player_1, game_board, move_counter, last_moves)
         Flag = victory(player_1, game_board, prev)
